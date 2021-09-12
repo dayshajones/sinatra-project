@@ -1,0 +1,13 @@
+<h2>Item:</h2>
+<p>Name: <%= @item.name%></p>
+<p>Quantity: <%= @item.quantity%></p> 
+<h3>Belongs to: <%= @item.user.try(:username)%></h3>
+<% if @item.user == current_user %>
+
+   <a href="/items/<%= @item.id %>/edit">Edit</a>
+
+   <form method="POST" action="/items/<%= @item.id %>">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value="delete item">
+   </form>
+<% end %>

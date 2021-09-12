@@ -18,3 +18,5 @@ group :test do
   gem 'capybara'
   gem 'rack-test'
 end
+
+gem 'sinatra-flash'

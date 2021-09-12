@@ -1,0 +1,13 @@
+<h1>Sign Up</h1>
+
+<% if flash[:alerts] %>
+    <%= flash[:alerts] %>
+    <%end%>
+
+<form action="/users" method="post">
+  <label for="username">Username:</label><br>
+  <input type="text" id="username" name="username"><br>
+  <label for="password">Password:</label><br>
+  <input type="password" id="password" name="password"><br>
+  <input type="submit" value="Sign Up">
+</form>

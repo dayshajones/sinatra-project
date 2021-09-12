@@ -1,0 +1,15 @@
+<h1>Add Item</h1>
+
+<% if flash[:invalid] %>
+    <%= flash[:invalid] %>
+    <%end%>
+
+<form action="/items" method="post">
+Name:
+<input type="text" name="name">
+<br>
+Quantity:
+<input type="number" name="quantity">
+<br>
+<input type="submit" name="submit">
+</form>
