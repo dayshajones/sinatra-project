@@ -21,15 +21,15 @@ class ItemsController < ApplicationController
     end
     
     post '/items' do #create create new grocery item
-        @item = Item.new(name: params['name'], quantity: params['quantity'])
-        if @item.name.blank? || @item.quantity.blank? || Item.find_by_name(params['name'])
-            flash[:invalid] = "Please enter a valid item and quantity."
-           redirect '/items/new'
-        else
-            @item.save
-            session[:user_id] = @item.id
+        if !logged_in?
+            redirect "/login"
+          else
+            @item = current_user.items.create(name: params[:name], quantity: params[:quantity])
+            if @item.name.blank? || @item.quantity.blank? || Item.find_by_name(params['name'])
+                flash[:invalid] = "Please enter a valid item and quantity."
             redirect '/items'
-        end
+            end
+          end
     end
 
     get '/items/:id/edit' do #edit return an HTML form for editing a grocery item
