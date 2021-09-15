@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 
-    get '/items' do     #index display all groceries
+    get '/items' do     
         if logged_in?
             @user = current_user
             @items = @user.items
@@ -10,29 +10,29 @@ class ItemsController < ApplicationController
         end
     end
 
-    get '/items/new' do # new return an HTML form for creating a new grocery item
+    get '/items/new' do 
         @item = Item.new
         erb :'items/new'
     end
 
-    get '/items/:id' do #show display a specific grocery item
+    get '/items/:id' do 
         @item = Item.find(params[:id])
         erb :'items/show'
     end
     
-    post '/items' do #create create new grocery item
-        if !logged_in?
-            redirect "/login"
-          else
-            @item = current_user.items.create(name: params[:name], quantity: params[:quantity])
-            if @item.name.blank? || @item.quantity.blank? || Item.find_by_name(params['name'])
+    post '/items' do    
+        @item = current_user.items.create(name: params[:name], quantity: params[:quantity])
+            if @item.name.blank? || @item.quantity.blank?
                 flash[:invalid] = "Please enter a valid item and quantity."
-            redirect '/items'
+                redirect '/items/new'
+            else
+                if @item.valid?
+                redirect '/items'
             end
-          end
+        end
     end
 
-    get '/items/:id/edit' do #edit return an HTML form for editing a grocery item
+    get '/items/:id/edit' do 
         @item = Item.find(params["id"])
         if @item.user != current_user
             redirect '/items'
@@ -41,13 +41,13 @@ class ItemsController < ApplicationController
         end
     end
 
-    patch '/items/:id' do #update a specfic grocery item
+    patch '/items/:id' do 
         @item = Item.find(params[:id])
         @item.update(params[:item])
         redirect "items/#{@item.id}"
     end
 
-    delete '/items/:id' do #delete a specfic grocery item
+    delete '/items/:id' do 
         item = Item.find(params[:id])
         if item.user == current_user
             item.destroy
