@@ -21,12 +21,12 @@ class ItemsController < ApplicationController
     end
     
     post '/items' do    
-        @item = current_user.items.create(name: params[:name], quantity: params[:quantity])
-            if @item.name.blank? || @item.quantity.blank?
+        item = current_user.items.create(name: params[:name], quantity: params[:quantity])
+            if item.name.blank? || item.quantity.blank?
                 flash[:invalid] = "Please enter a valid item and quantity."
                 redirect '/items/new'
             else
-                if @item.valid?
+                if item.valid?
                 redirect '/items'
             end
         end
@@ -42,8 +42,8 @@ class ItemsController < ApplicationController
     end
 
     patch '/items/:id' do 
-        @item = Item.find(params[:id])
-        @item.update(params[:item])
+        item = Item.find(params[:id])
+        item.update(params[:item])
         redirect "items/#{@item.id}"
     end
 

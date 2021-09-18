@@ -5,11 +5,11 @@ class UsersController < ApplicationController
         erb :'/users/index'
     end
     
-    get "/users/new" do #new
+    get "/users/new" do
         erb :"users/new"
     end
 
-    post "/users" do #create
+    post "/users" do
         u = User.new(username: params['username'], password: params['password'])
         if u.username.blank? || u.password.blank? || User.find_by_username(params['username'])
             flash[:alerts] = "Invalid, please try again."
@@ -20,7 +20,6 @@ class UsersController < ApplicationController
             redirect '/items'
         end
     end
-
 
     get "/users/:id" do
         @user = User.find(params[:id])
