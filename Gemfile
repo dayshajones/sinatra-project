@@ -20,3 +20,5 @@ group :test do
 end
 
 gem 'sinatra-flash'
+
+gem "dotenv", "~> 2.7"

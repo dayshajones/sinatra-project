@@ -11,6 +11,9 @@ Installation
 5. In your browser, navigate to ```http://localhost:9393/```
 6. Sign up, log in, and get to collecting
 
+* create a .env file in your root directory with: 
+
+SESSION_SECRET=<Your Secret Here>
 Built With
 Ruby 2.6.1
 Sinatra - The web framework used
