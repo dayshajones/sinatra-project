@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     end
 
     get '/logout' do
-        session.delete(:user_id)
+        session.clear
         redirect '/users/new'
     end
 
