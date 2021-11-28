@@ -1,0 +1,9 @@
+<h1>About page</h1>
+
+<% if logged_in? %>
+    Thanks for visiting, <%= current_user.username %>!
+    <% else %>
+    Please <a href="/login">Login</a>
+    <% end %>
+
+ 
